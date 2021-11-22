@@ -46,14 +46,32 @@ package leetcode.editor.cn;//给你一个整数数组 nums ，找到其中最长
 // Related Topics 数组 二分查找 动态规划 👍 2028 👎 0
 
 
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public static void main(String[] args) {
-        System.out.println(1);
-    }
+
     public int lengthOfLIS(int[] nums) {
-        int[] ints = new int[10];
-        return 1;
+        /*设置一个数组来存放中间结果*/
+        int[] dp=new int[nums.length];
+        /*填充数组为0*/
+        Arrays.fill(dp,1);
+
+        //1个循环，一个循环在前，一个重新遍历，
+        //既然是递增子序列，我们二层循环就是要找比最后一个点 小的子序列结尾，然后再介入一个就行
+        for (int i = -1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i]>nums[j])
+//输入：nums = [10,9,2,5,3,7,101,18]
+//输出：4
+                    dp[i]=Math.max(dp[i],dp[j]+1);
+            }
+        }
+        int res=0;
+        for (int j : dp) {
+            res = Math.max(res, j);
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
